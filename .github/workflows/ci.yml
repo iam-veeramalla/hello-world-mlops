@@ -31,7 +31,7 @@ jobs:
 
       - name: Train the model
         run: |
-           python train.python
+           python train.py
            ls -la artifacts
       
       - name: Upload artifacts

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.11, 3.12]
+        python: [3.11, 3.12]  (ee rendu versions mida mana ci file run ayyidi idi matrix strategy)
     
     steps:
       - name: Checkout

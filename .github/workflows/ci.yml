@@ -8,36 +8,32 @@ on:
 
 jobs:
   matrix-pip:
-    name: Train and Save the model
+    name: Train and save the model
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.11, 3.12]
-    
+        python-version: [3.11 , 3.12]
+
     steps:
-      - name: Checkout
+      - name: checkout code
         uses: actions/checkout@v4
       
-      - name: Setup python 
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-           python-version: ${{ matrix.python }}
-      
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip setuptools wheel
+          python-version: ${{ matrix.python-version }}
 
-      - name: Install project dependencies
-        run: python -m pip install -r requirements.txt
+      - name: upgrade pip
+        run: python -m pip install --upgrade pip
 
-      - name: Train the model
-        run: |
-           python train.py
-           ls -la artifacts
-      
-      - name: Upload artifacts
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: train and save the model
+        run: python train.py
+
+      - name: Upload model artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ml-artifacts-${{ matrix.python }}-${{ github.run_id }}
+          name: ml-artifacts-${{ matrix.python-version }}-${{ github.run_id }}
           path: artifacts
-
-
